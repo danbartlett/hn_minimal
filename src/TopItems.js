@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
 import Item from './Item';
+import sortByScore from './sorter';
 
 var TopItems = React.createClass({
   sortByScore: function() {
-    var items = this.props.items
-    items.sort(function(a, b) {
-      if (a.score < b.score) {
-        return 1;
-      }
-      if (a.score > b.score) {
-        return -1;
-      }
-      return 0;
-    });
-    this.setState({items: items});
+    this.setState({items: sortByScore(this.props.items)});
   },
 
   render: function() {
@@ -25,9 +16,10 @@ var TopItems = React.createClass({
       );
     });
 
+    // Retired, sort button
+    // <SortButton items={this.props.items} sortByScore={this.sortByScore}/>
     return (
       <div>
-        <SortButton items={this.props.items} sortByScore={this.sortByScore}/>
         <div className="top-stories">
           {all_items}
         </div>

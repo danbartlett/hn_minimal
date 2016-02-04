@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
 import TopItems from './TopItems';
+import sortByScore from './sorter';
 
 var App = React.createClass({
   loadItems: function() {
@@ -29,7 +30,7 @@ var App = React.createClass({
         return value[0];
       });
 
-      that.setState({items: raw_items});
+      that.setState({items: sortByScore(raw_items)});
     });
   },
 
