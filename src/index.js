@@ -6,4 +6,4 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-ReactDOM.render(<App autoreload='false'/>, document.getElementById('page'));
+ReactDOM.render(<App autoreload='true'/>, document.getElementById('page'));

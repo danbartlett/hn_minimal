@@ -41,7 +41,7 @@ var App = React.createClass({
   componentDidMount: function() {
     this.loadItems();
     if (this.props.autoreload == 'true') {
-      setInterval(this.loadItems, 4000);
+      setInterval(this.loadItems, 120000);
     }
   },
 
