@@ -8,10 +8,7 @@ A minimal Hacker News client written in React.js
 
 * `npm install`
 * `npm start`
- 
 
 ## Auto-refresh
 
-If you want the client to auto-refresh itself, change `autoreload` to true in `src/index.js`
-
-The refresh time is set in `App.js` - look for `setInterval(this.loadItems, 4000);`
+The client will refresh itself every 2 minutes with the latest stories, and sort by score. You can change this in  `App.js` - look for `setInterval(this.loadItems, 120000);`
