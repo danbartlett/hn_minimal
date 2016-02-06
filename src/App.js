@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
 import TopItems from './TopItems';
-import sortByScore from './sorter';
+import * as helpers from './helpers';
 
 var App = React.createClass({
   loadItems: function() {
@@ -30,8 +30,10 @@ var App = React.createClass({
         return value[0];
       });
 
-      that.setState({items: sortByScore(raw_items)});
+      that.setState({items: helpers.sortByScore(raw_items)});
     });
+
+    helpers.printLastUpdateTime();
   },
 
   getInitialState: function() {
@@ -40,8 +42,8 @@ var App = React.createClass({
 
   componentDidMount: function() {
     this.loadItems();
-    if (this.props.autoreload == 'true') {
-      setInterval(this.loadItems, 120000);
+    if (this.props.autoreload === true) {
+      setInterval(this.loadItems, helpers.inMilliseconds(this.props.minutes));
     }
   },
 
