@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Navigation from './Navigation';
 import TopItems from './TopItems';
 import * as helpers from './helpers';
+var Loader = require('react-loader');
 
 var App = React.createClass({
   loadItems: function() {
     var api_url = 'https://hacker-news.firebaseio.com/v0/topstories.json';
     var that = this;
 
+    // Query TopStories
     $.ajax({
       url: api_url,
       dataType: 'json',
@@ -16,6 +18,7 @@ var App = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
 
+    // Loop through TopStories, and fetch individual items
     }).then( function(items) {
       var top_items = items.slice(0, 19).map(function(item) {
         return $.ajax({
@@ -30,14 +33,14 @@ var App = React.createClass({
         return value[0];
       });
 
-      that.setState({items: helpers.sortByScore(raw_items)});
+      that.setState({items: helpers.sortByScore(raw_items), loaded: true});
     });
 
     helpers.printLastUpdateTime();
   },
 
   getInitialState: function() {
-    return {items: []};
+    return {items: [], loaded: false};
   },
 
   componentDidMount: function() {
@@ -49,7 +52,9 @@ var App = React.createClass({
 
   render: function() {
     return (
-      <TopItems items={this.state.items} />
+      <Loader loaded={this.state.loaded}>
+        <TopItems items={this.state.items} />
+      </Loader>
     );
   }
 });
